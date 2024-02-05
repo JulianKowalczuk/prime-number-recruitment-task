@@ -9,7 +9,7 @@ const CHUNK_SIZE_PER_WORKER = 10000
 const MAX_WORKERS_AMOUNT = 10
 
 function sleep() {
-  return new Promise<void>((r) => setTimeout(r, 500))
+  return new Promise<void>((r) => setTimeout(r, 1))
 }
 
 export function isPrime(num: number) {
@@ -40,6 +40,7 @@ export async function runMainThread() {
   const primes: number[] = []
   let runningWorkersAmount = 0
 
+  console.time('Processing time')
   for (let start = MIN; start <= MAX; start += CHUNK_SIZE_PER_WORKER) {
     while (runningWorkersAmount == MAX_WORKERS_AMOUNT) {
       // Sleeping because of max workers
@@ -70,6 +71,7 @@ export async function runMainThread() {
 
   const message = 'Prime is : ' + primes.join(' ')
   console.log(message)
+  console.timeEnd('Processing time')
 }
 
 function runWorker() {

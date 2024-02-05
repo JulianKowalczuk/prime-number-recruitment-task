@@ -6,14 +6,18 @@ Code is written in TypeScript using ESM. Base implementation was fixed, improved
 
 Run **npm i** to install required dependencies.
 
+## Development
+
+Run **npm run dev** to start app using ts-node (runs MUCH slower than compiled version).
+
 ## Run
 
-Run **npm start**.
+Run **npm run build** and **npm start**. **npm start** should be used for production app usage.
 
 ## Test
 
 Vitest is used as tests framework. Unit and E2E tests should be separated, but for simplicity of code reviewing they are in same file.
-Run using command **npm test**.
+Run using command **npm test**. Final test runs as slow as development version of app, because Vitests is also working from uncompiled files.
 
 ## Info
 

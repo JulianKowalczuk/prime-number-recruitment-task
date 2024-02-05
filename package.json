@@ -4,16 +4,21 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start": "node -r ts-node/register --loader ts-node/esm --no-warnings src/index.ts",
+    "start": "node dist/index.js",
+    "dev": "node -r ts-node/register --loader ts-node/esm --no-warnings src/index.ts",
+    "build": "tsc",
     "test": "vitest --pool=forks run"
   },
   "author": "Julian Kowalczuk <julian.kowalczuk@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "20.11.16",
+    "@types/node": "18.18.0",
     "ts-node": "10.9.2",
     "typescript": "5.3.3",
     "vitest": "^1.2.2"
   },
-  "type": "module"
+  "type": "module",
+  "engines": {
+    "node": "18"
+  }
 }
