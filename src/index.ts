@@ -5,16 +5,14 @@ export type GeneratePrimesArgs = { start: number; end: number }
 
 const MIN = 2
 const MAX = 1e7
-const CHUNK_SIZE_PER_WORKER = 10000
 const MAX_WORKERS_AMOUNT = 10
+const CHUNK_SIZE_PER_WORKER = Math.ceil(MAX / MAX_WORKERS_AMOUNT)
 
 function sleep() {
-  return new Promise<void>((r) => setTimeout(r, 1))
+  return new Promise<void>((r) => setTimeout(r, 0))
 }
 
 export function isPrime(num: number) {
-  if (num == null || isNaN(num)) return false
-
   for (let j = 2; j <= Math.sqrt(num); j++) {
     if (num % j == 0) {
       return false
@@ -27,7 +25,7 @@ export function isPrime(num: number) {
 export function generatePrimes({ start, end }: GeneratePrimesArgs) {
   const primes: number[] = []
 
-  for (let i = start; i <= end; i++) {
+  for (let i = start; i < end + 1; i++) {
     if (isPrime(i)) {
       primes.push(i)
     }
@@ -41,7 +39,7 @@ export async function runMainThread() {
   let runningWorkersAmount = 0
 
   console.time('Processing time')
-  for (let start = MIN; start <= MAX; start += CHUNK_SIZE_PER_WORKER) {
+  for (let start = MIN; start < MAX + 1; start += CHUNK_SIZE_PER_WORKER) {
     while (runningWorkersAmount == MAX_WORKERS_AMOUNT) {
       // Sleeping because of max workers
       await sleep()
@@ -59,7 +57,6 @@ export async function runMainThread() {
     worker.on('message', async (chunkOfPrimes: number[]) => {
       primes.push(...chunkOfPrimes)
 
-      await worker.terminate()
       runningWorkersAmount--
     })
   }

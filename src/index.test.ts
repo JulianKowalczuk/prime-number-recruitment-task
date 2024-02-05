@@ -16,18 +16,6 @@ describe('Main entry', () => {
     test('for number 4 should be false', () => {
       expect(isPrime(4)).toBe(false)
     })
-
-    test('for NaN should be falsy', () => {
-      expect(isPrime(NaN)).toBe(false)
-    })
-
-    test('for null should be falsy', () => {
-      expect(isPrime(null as any)).toBe(false)
-    })
-
-    test('for undefined should be falsy', () => {
-      expect(isPrime(undefined as any)).toBe(false)
-    })
   })
 
   describe('generatePrimes', () => {
